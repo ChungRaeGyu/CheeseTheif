@@ -9,6 +9,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public static NetworkManager Instance;
     bool reStart = false;
     string roomName = "";
+    
+
     public void Quit()
     {
         Application.Quit();
@@ -71,6 +73,11 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         //여기다가 조건을 달면 이게 mmr매칭이나 이런게 된다.
         PhotonNetwork.JoinRandomRoom();
     }
+
+    public void Joinroom(string roomName)
+    {
+        PhotonNetwork.JoinRoom(roomName);
+    }
     public override void OnJoinedRoom()
     {
         if (PhotonNetwork.IsMasterClient)
@@ -85,7 +92,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         string roomName = "Room" + Random.Range(0, 10000);
         RoomOptions roomOptions = new RoomOptions();
         roomOptions.IsOpen = true;
-        roomOptions.MaxPlayers = 2; //최대인원
+        roomOptions.MaxPlayers = 8; //최대인원
         roomOptions.EmptyRoomTtl = 5;
         roomOptions.CleanupCacheOnLeave = true;
         PhotonNetwork.CreateRoom(roomName, roomOptions);
